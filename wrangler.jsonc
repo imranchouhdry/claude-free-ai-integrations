@@ -1,0 +1,11 @@
+
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "claude-free-ai",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-21",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "OPENROUTER_MODEL": "meta-llama/llama-3.3-70b-instruct:free"
+  }
+}
