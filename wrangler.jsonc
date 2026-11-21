@@ -6,7 +6,7 @@
   "compatibility_date": "2026-11-21",
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
-    "OPENROUTER_MODEL": "google/gemma-4-26b-a4b-it:free"
+    "OPENROUTER_MODEL": "openrouter/free"
   },
   "observability": {
     "logs": {
