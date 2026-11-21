@@ -1,5 +1,4 @@
 
-
 import { env } from "cloudflare:workers";
 import { McpServer } from "@modelcontextprotocol/server";
 import { createMcpHandler } from "agents/mcp/server";
@@ -30,9 +29,7 @@ function createServer() {
           },
           body: JSON.stringify({
             model: env.OPENROUTER_MODEL,
-            messages: [
-              { role: "user", content: prompt }
-            ]
+            messages: [{ role: "user", content: prompt }]
           })
         }
       );
@@ -52,7 +49,8 @@ function createServer() {
       return {
         content: [{
           type: "text",
-          text: data.choices?.[0]?.message?.content || "No response received."
+          text: data.choices?.[0]?.message?.content ||
+            "No response received."
         }]
       };
     }
@@ -64,9 +62,19 @@ function createServer() {
 const handler = createMcpHandler(createServer);
 
 export default {
-  fetch(request, workerEnv, ctx) {
-    if (new URL(request.url).pathname === "/") {
+  async fetch(request, workerEnv, ctx) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/") {
       return new Response("Claude Free AI MCP Server is running.");
+    }
+
+    if (url.pathname === "/mcp") {
+      const token = request.headers.get("Authorization");
+
+      if (token !== `Bearer ${env.MCP_ACCESS_TOKEN}`) {
+        return new Response("Unauthorized", { status: 401 });
+      }
     }
 
     return handler(request, workerEnv, ctx);
