@@ -1,3 +1,4 @@
+
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "claude-free-ai-integrations",
@@ -6,5 +7,21 @@
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
     "OPENROUTER_MODEL": "meta-llama/llama-3.3-70b-instruct:free"
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    },
+    "traces": {
+      "enabled": false,
+      "head_sampling_rate": 1,
+      "persist": true
+    },
+    "issue_detection": {
+      "enabled": false
+    }
   }
 }
